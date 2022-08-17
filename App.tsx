@@ -40,13 +40,14 @@ const App = () => {
   }
 
   const tabScreenOptions: BottomTabNavigationOptions = {
-    headerStyle: {
-      backgroundColor: '#229e72',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
+    // headerStyle: {
+    //   backgroundColor: '#229e72',
+    // },
+    // headerTintColor: '#fff',
+    // headerTitleStyle: {
+    //   fontWeight: 'bold',
+    // },
+    headerShown: false,
     tabBarShowLabel: false,
   }
 
@@ -156,6 +157,18 @@ const App = () => {
     </HomeStack.Navigator>
   )
 
+  const FeedStackScreen = () => (
+    <FeedsStack.Navigator screenOptions={stackScreenOptions}>
+      <FeedsStack.Screen name="Feeds" component={FeedsScreen} />
+    </FeedsStack.Navigator>
+  )
+
+  const SettingStackScreen = () => (
+    <SettingsStack.Navigator screenOptions={stackScreenOptions}>
+      <SettingsStack.Screen name="Settings" component={SettingsScreen} />
+    </SettingsStack.Navigator>
+  )
+
   const UnauthNav = () => (
     <Stack.Navigator screenOptions={stackScreenOptions}>
       <Stack.Screen name="Sign In" component={SignInScreen} />
@@ -167,18 +180,18 @@ const App = () => {
   const AuthNav = () => (
     <Tab.Navigator screenOptions={tabScreenOptions}>
       <Tab.Screen
-        name="Home"
+        name="Home Stack"
         component={HomeStackScreen}
         options={{ tabBarIcon: () => <HomeIcon /> }}
       />
       <Tab.Screen
-        name="Feeds"
-        component={FeedsScreen}
+        name="Feeds Stack"
+        component={FeedStackScreen}
         options={{ tabBarIcon: () => <FeedsIcon /> }}
       />
       <Tab.Screen
-        name="Settings"
-        component={SettingsScreen}
+        name="Settings Stack"
+        component={SettingStackScreen}
         options={{ tabBarIcon: () => <SettingsIcons /> }}
       />
     </Tab.Navigator>
