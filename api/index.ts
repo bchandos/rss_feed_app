@@ -66,7 +66,7 @@ interface feedItem {
   user_feed_name: string
   auto_expire: boolean
   preview_articles: boolean
-  Feed: feed
+  feed: feed
 }
 
 interface articleItem {

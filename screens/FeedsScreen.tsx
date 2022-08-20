@@ -18,7 +18,7 @@ interface feedItem {
   user_feed_name: string
   auto_expire: boolean
   preview_articles: boolean
-  Feed: feed
+  feed: feed
 }
 
 const FeedsScreen = () => {
@@ -48,7 +48,7 @@ const FeedsScreen = () => {
     return (
       <TouchableNativeFeedback key={idx} onPress={() => refreshFeed(item.feed_id)}>
         <ListItem style={{ width: '100%', marginBottom: 6}}>
-          <Avatar rounded size={32} source={item.Feed.image_url ? { uri: item.Feed.image_url } : {}} />
+          <Avatar rounded size={32} source={item.feed.image_url ? { uri: item.feed.image_url } : {}} />
           <ListItem.Content>
             <ListItem.Title style={{ color: 'gray', fontWeight: 'bold', fontFamily: 'Roboto', fontSize: 24 }}>
               {item.user_feed_name}
