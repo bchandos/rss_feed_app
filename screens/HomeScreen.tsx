@@ -23,6 +23,7 @@ const HomeScreen = ({ navigation }: Props) => {
   }
 
   useEffect(() => {
+    // https://medium.com/doctolib/react-stop-checking-if-your-component-is-mounted-3bb2568a4934
     const loadArticles = async () => {
       const token = await getToken()
       if (token !== null) {
