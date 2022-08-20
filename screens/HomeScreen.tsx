@@ -4,30 +4,11 @@ import { useContext, useEffect, useState } from 'react'
 import { Text, View, TouchableNativeFeedback, ListRenderItem, ListRenderItemInfo, FlatList } from 'react-native'
 import { getFeedItems } from '../api'
 import AuthContext from '../auth-context'
+import { articleItem } from '../interfaces'
 
 type RootStackParamList = {
   Home: undefined
   Article: undefined
-}
-
-interface articleItem {
-  user_id: number
-  item_id: number
-  read: boolean
-  bookmark: boolean
-  item: Item
-}
-
-interface Item {
-  id: number
-  feed_id: number
-  title: string
-  link: string
-  description: string
-  content: string | null
-  publication_date: string
-  media_content: string | null
-  guid: string
 }
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>
@@ -58,7 +39,10 @@ const HomeScreen = ({ navigation }: Props) => {
   }: ListRenderItemInfo<articleItem>) => (
       <TouchableNativeFeedback onPress={() => articleNav()} key={item.item_id} style={{ width: '100%'}}>
          <Card>
-           <Card.Title>{item.item.title}</Card.Title>
+           <Card.Title>
+              <Avatar rounded size={32} source={item.item.feed.image_url ? { uri: item.item.feed.image_url } : {}}/>
+              {item.item.title}
+            </Card.Title>
            <Card.Divider />
            <Text>{item.item.description}</Text>
          </Card>

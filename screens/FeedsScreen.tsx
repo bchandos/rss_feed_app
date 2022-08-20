@@ -3,23 +3,7 @@ import { getUserFeeds, setFeedRefresh } from '../api'
 import { useContext, useEffect, useState } from 'react'
 import { Avatar, ListItem } from '@rneui/themed'
 import AuthContext from '../auth-context'
-
-interface feed {
-  id: number
-  name: string
-  url: string
-  image_url: string
-  has_content: boolean
-}
-
-interface feedItem {
-  user_id: number
-  feed_id: number
-  user_feed_name: string
-  auto_expire: boolean
-  preview_articles: boolean
-  feed: feed
-}
+import { feedItem } from '../interfaces'
 
 const FeedsScreen = () => {
   const [feedItems, setFeedItems] = useState(Array<feedItem>)
