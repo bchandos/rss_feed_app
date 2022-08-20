@@ -1,9 +1,16 @@
-import { Text, View } from 'react-native'
-import * as SecureStore from 'expo-secure-store'
-import { getUserFeeds } from '../api'
+import { TouchableNativeFeedback, View } from 'react-native'
+import { getUserFeeds, setFeedRefresh } from '../api'
 import { useContext, useEffect, useState } from 'react'
-import { ListItem } from '@rneui/themed'
+import { Avatar, ListItem } from '@rneui/themed'
 import AuthContext from '../auth-context'
+
+interface feed {
+  id: number
+  name: string
+  url: string
+  image_url: string
+  has_content: boolean
+}
 
 interface feedItem {
   user_id: number
@@ -11,6 +18,7 @@ interface feedItem {
   user_feed_name: string
   auto_expire: boolean
   preview_articles: boolean
+  Feed: feed
 }
 
 const FeedsScreen = () => {
@@ -29,16 +37,26 @@ const FeedsScreen = () => {
     getFeeds()
   }, [])
 
+  const refreshFeed = async (feedId: number) => {
+    const token = await getToken()
+    if (token !== null) {
+      const uuids = await setFeedRefresh(token, feedId)
+    }
+  }
+
   const displayItems = feedItems.map((item: feedItem, idx: number) => {
     return (
-      <ListItem key={idx} style={{ width: '100%', marginBottom: 6}}>
-        <ListItem.Content>
-          <ListItem.Title style={{ color: 'gray', fontWeight: 'bold', fontFamily: 'Roboto', fontSize: 24 }}>
-            {item.user_feed_name}
-          </ListItem.Title>
-        </ListItem.Content>
-        <ListItem.Chevron color="gray" />
-      </ListItem>
+      <TouchableNativeFeedback key={idx} onPress={() => refreshFeed(item.feed_id)}>
+        <ListItem style={{ width: '100%', marginBottom: 6}}>
+          <Avatar rounded size={32} source={item.Feed.image_url ? { uri: item.Feed.image_url } : {}} />
+          <ListItem.Content>
+            <ListItem.Title style={{ color: 'gray', fontWeight: 'bold', fontFamily: 'Roboto', fontSize: 24 }}>
+              {item.user_feed_name}
+            </ListItem.Title>
+          </ListItem.Content>
+          <ListItem.Chevron color="gray" />
+        </ListItem>
+      </TouchableNativeFeedback>
     )
   })
   return (

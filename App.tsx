@@ -20,6 +20,7 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs'
 import { HomeIcon, FeedsIcon, SettingsIcons } from './components/Icons'
+import ArticleScreen from './screens/ArticleScreen'
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -154,6 +155,7 @@ const App = () => {
   const HomeStackScreen = () => (
     <HomeStack.Navigator screenOptions={stackScreenOptions}>
       <HomeStack.Screen name="Home" component={HomeScreen} />
+      <HomeStack.Screen name="Article" component={ArticleScreen} />
     </HomeStack.Navigator>
   )
 
